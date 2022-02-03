@@ -1,0 +1,107 @@
+margin-top: 180px;
+margin-bottom: 180px;
+margin-right: 520px;
+margin-left: 520px;
+
+
+  margin-top: 11rem;
+margin-bottom: 11rem;
+margin-right: 33rem;
+margin-left: 33rem;
+border-radius: 2rem;
+
+
+flex: 100%;
+    width: 100px;
+    height: 300px;
+    margin:1rem;
+    background-color: white;
+    border-radius: 3rem;
+
+
+
+        setConfirmedWorldValue(response.data.confirmedWorld);
+        setConfirmedIndiaValue(response.data.confirmedIndia);
+        setConfirmedKarnatakaValue(response.data.confirmedKarnataka);
+        setConfirmedDateValue(response.todaysDateConfirmed);
+
+
+
+    const [confirmedWorldValue,setConfirmedWorldValue] = useState("");
+    const [confirmedIndiaValue,setConfirmedIndiaValue] = useState("");
+    const [confirmedKarnatakaValue,setConfirmedKarnatakaValue] = useState("");
+    const [confirmedDateValue,setConfirmedDateValue] = useState("");
+
+      
+
+
+
+
+
+
+
+
+
+      import React from 'react'
+import '../App.css';
+import { useEffect , useState } from 'react';
+import axios from 'axios';
+import CoronavirusIcon from '@mui/icons-material/Coronavirus';
+
+function Lsd() {
+
+
+    let confirmedWorldValue="";
+    let confirmedIndiaValue="";
+    let confirmedKarnatakaValue="";
+    let confirmedDateValue="";
+
+      
+    useEffect(()=>{
+        axios({
+            method:'get',
+            url:'https://kls-hospital-management-system.herokuapp.com/LiveCovid19Data',
+            data: {
+                }
+            })
+            .then((response)=> {
+        
+                confirmedWorldValue=response.data.confirmedWorld;
+                confirmedIndiaValue=response.data.confirmedIndia;
+                confirmedKarnatakaValue=response.data.confirmedKarnataka;
+                confirmedDateValue=response.data.todaysDateConfirmed;
+        
+            console.log("WORLD : " + confirmedWorldValue);
+            console.log("INDIA : " + confirmedIndiaValue);
+            console.log("KARNATAKA : " + confirmedKarnatakaValue);
+            console.log("DATE : " + confirmedDateValue);
+            }, (error) => {
+            console.log(error);
+            });
+            
+    },[confirmedWorldValue,confirmedIndiaValue,confirmedKarnatakaValue,confirmedDateValue]);
+
+
+    return (
+        <div className='bx'>
+        <div className='b5'>
+            <div className='b5-div'>
+            <CoronavirusIcon className='coronaIcon'/>
+            </div>
+            
+        </div>
+        <div className='b6'>
+        <div className='coronainfo'>
+            <div id="live">LIVE</div><br></br>
+            <div>Corona Covid-19 Tracker</div><br></br>
+            <div>{"WORLD : " + confirmedWorldValue}</div><br></br>
+            <div>{"INDIA : " + confirmedIndiaValue}</div><br></br>
+            <div>{"KARNATAKA : " + confirmedKarnatakaValue}</div><br></br>
+            <div>{"DATE : " + confirmedDateValue}</div><br></br>
+        </div>
+        </div>
+        </div>
+    )
+}
+
+export default Lsd
